@@ -76,8 +76,8 @@ def run_demo(param, model, data):
     if args.v:
         print('Final training loss: {:.4f}'.format(obj_vals[-1]))
         print('Final test loss: {:.4f}'.format(cross_vals[-1]))
-        print('Final train accuracy: {:.4f}'.format(accuracy_train_vals[-1]))
-        print('Final test accuracy: {:.4f}'.format(accuracy_test_vals[-1]))
+        print('Final train accuracy: {:.2f}%'.format(accuracy_train_vals[-1]/len(data.y_train) * 100))
+        print('Final test accuracy: {:.2f}%'.format(accuracy_test_vals[-1]/len(data.y_train) * 100))
 
     return obj_vals, cross_vals
 

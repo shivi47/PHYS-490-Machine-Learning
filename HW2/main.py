@@ -44,7 +44,10 @@ def run_demo(param, model, data):
 
     obj_vals= []
     cross_vals= []
+    accuracy_train_vals = []
+    accuracy_test_vals = []
     num_epochs= int(param['num_epochs'])
+
 
     # Training loop
     for epoch in range(1, num_epochs + 1):
@@ -55,17 +58,26 @@ def run_demo(param, model, data):
         test_val= model.test(data, loss, epoch)
         cross_vals.append(test_val)
 
+
         # High verbosity report in output stream
         if args.v>=2:
             if not ((epoch + 1) % param['display_epochs']):
+                accuracy_train_val, accuracy_test_val = model.accuracy(data)
+                accuracy_train_vals.append(accuracy_train_val)
+                accuracy_test_vals.append(accuracy_test_val)
                 print('Epoch [{}/{}]'.format(epoch+1, num_epochs)+\
                       '\tTraining Loss: {:.4f}'.format(train_val)+\
-                      '\tTest Loss: {:.4f}'.format(test_val))
+                      '\tTest Loss: {:.4f}'.format(test_val)+\
+                      '\tTraining Accuracy: {:.2f}%'.format(accuracy_train_val/len(data.y_train) * 100)+\
+                      '\tTest Accuracy: {:.2f}%'.format(accuracy_test_val/len(data.y_test)*100))
+
 
     # Low verbosity final report
     if args.v:
         print('Final training loss: {:.4f}'.format(obj_vals[-1]))
         print('Final test loss: {:.4f}'.format(cross_vals[-1]))
+        print('Final train accuracy: {:.4f}'.format(accuracy_train_vals[-1]))
+        print('Final test accuracy: {:.4f}'.format(accuracy_test_vals[-1]))
 
     return obj_vals, cross_vals
 
@@ -85,6 +97,7 @@ if __name__ == '__main__':
     # Hyperparameters from json file
     with open(args.param) as paramfile:
         param = json.load(paramfile)
+
 
     model, data= prep_demo(param['data'])
     obj_vals, cross_vals= run_demo(param['exec'], model, data)

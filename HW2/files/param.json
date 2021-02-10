@@ -5,7 +5,7 @@
 		"n_bits": 196
 	},
 	"exec":{
-		"learning_rate": 3e-3,
+		"learning_rate": 3e-2,
 		"num_epochs": 2e3,
 		"display_epochs": 250
 	}

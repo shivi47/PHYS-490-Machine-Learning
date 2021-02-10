@@ -68,7 +68,7 @@ class Net(nn.Module):
                 if np.allclose(target_train.numpy()[i], data.y_train[i], atol = 1e-1): accurate_train += 1
             for i in range(len(data.y_test)):
                 #print(target_train[i], y_train[i])
-                if np.allclose(target_test.numpy()[i], data.y_test[i], atol = 1e-1): accurate_test += 1
+                if np.allclose(target_test.numpy()[i], data.y_test[i], atol = 1e-2): accurate_test += 1
 
         return accurate_train, accurate_test
 

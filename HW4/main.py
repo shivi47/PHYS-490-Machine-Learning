@@ -31,10 +31,8 @@ if __name__ == '__main__':
         i += 1
 
     data = torch.from_numpy(ising)
-    print(data)
 
     data = data.reshape(-1,4)
-    print(len(data))
     data = np.array(data)
     data2 = [np.array_str(data[i,:]).replace('[','').replace(']','').replace('\n','') for i in range(0,len(data))]
     frequency_in = Counter(data2)
@@ -43,6 +41,7 @@ if __name__ == '__main__':
         p_in = {key : value}
     p = torch.from_numpy(np.array([p_in[key] for key in p_in.keys()]))
     e = np.sum([data[:,i]*data[:,(i+1)%len(data[0])] for i in range(len(data[0]))], axis=1)/len(data)
+    print('Expectation Values: ',e)
     training = []
 
     for epoch in range(1, epochs+1):

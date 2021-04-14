@@ -3,13 +3,14 @@ import torch.optim as optim
 import matplotlib.pyplot as plt
 sys.path.append('src')
 from data_input import Data_Input
+from nn_gen import Net
 
 
-def prep(params):
+def prep(params, test_set):
 
     # Construct a model and dataset
     model= Net(params['n_bits'])
-    data= Data_Input()
+    data= Data_Input(test_set)
     return model, data
 
 def run(params, model, data):
@@ -60,12 +61,12 @@ if __name__ == "__main__":
     with open(args.param) as paramfile:
         params = json.load(paramfile)
     print("testing")
-    test_size = int(params['test_size'])
+    test_set = int(params['test_set'])
     display_epochs = int(params['display_epochs'])
 
     results_dir = args.o
 
-    model, data= prep(params)
+    model, data= prep(params, test_set)
     obj_vals, cross_vals= run(params, model, data)
 
     x_range = range(1, num_epochs + 1)

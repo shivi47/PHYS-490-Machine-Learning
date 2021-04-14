@@ -39,7 +39,7 @@ class Net(nn.Module):
         )
 
     # Decoder
-    self.decoder = nn.Sequential(
+        self.decoder = nn.Sequential(
             nn.Linear(10, 100),
             nn.ReLU(),
             nn.BatchNorm1d(100),
@@ -76,7 +76,7 @@ class Net(nn.Module):
         BCE = func.binary_cross_entropy(rec, h.view(-1, 14*14), reduction='sum')
         var = np.exp(lvar)
         KLD = 0.5 * torch.sum(1 + lvar - var - u**2)
-        return(BCE - KLD)h.size(0)
+        return(BCE - KLD)/h.size(0)
 
     # Backpropagation function
     def backprop(self, optimizer, batch_size):
@@ -132,5 +132,5 @@ class Net(nn.Module):
                 ax.imshow(recon[i, :, :], cmap = cm.binary)
                 plt.axis('off')
                 if result_dir:
-                    plt.savefig(os.path.join(result_dir, '{}.pdf'.format(i))
-            plt.show()
+                    plt.savefig(os.path.join(result_dir, '{}.pdf'.format(i)))
+                plt.show()

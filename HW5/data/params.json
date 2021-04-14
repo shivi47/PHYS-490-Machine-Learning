@@ -1,0 +1,8 @@
+{
+	"num_epochs": 2000,
+	"test_set": 1000,
+	"lr": 2e-3,
+	"display_epochs": 200,
+	"batch_size": 1000,
+  "n_bits": 490
+}
